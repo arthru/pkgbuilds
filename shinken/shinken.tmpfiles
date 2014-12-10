@@ -1,0 +1,2 @@
+d /run/shinken 710 shinken shinken
+d /var/log/shinken 750 shinken shinken
