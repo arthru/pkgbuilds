@@ -1,0 +1,55 @@
+# Maintainer: Arthur Vuillard <arthur@hashbang.fr>
+
+pkgname=shinken-mod-auth-cfg-password
+pkgver=2.0.1
+pkgrel=1
+pkgdesc=''
+arch=('any')
+url='https://github.com/shinken-monitoring/mod-auth-cfg-password'
+license=('AGPL')
+depends=('shinken')
+source=(
+    'https://github.com/shinken-monitoring/mod-auth-cfg-password/archive/2.0.1.zip'
+    'content.py'
+)
+
+_src_base='mod-auth-cfg-password-2.0.1'
+_mod_name='auth-cfg-password'
+
+build(){
+    python2 content.py $_src_base > $srcdir/content.json
+}
+
+package() {
+    if [ -d $srcdir/$_src_base/share ] ; then
+        install -d $srcdir/$_src_base/share $pkgdir/var/lib/shinken/share
+        cp $srcdir/$_src_base/share $pkgdir/var/lib/shinken/share
+    fi
+    if [ -d $srcdir/$_src_base/module ] ; then
+        install  -d $pkgdir/var/lib/shinken/modules/$_mod_name
+        cp -r $srcdir/$_src_base/module/* $pkgdir/var/lib/shinken/modules/$_mod_name
+    fi
+    if [ -d $srcdir/$_src_base/doc ] ; then
+        install -d $pkgdir/var/lib/shinken/doc/source/89_packages
+        cp -r $srcdir/$_src_base/doc $pkgdir/var/lib/shinken/doc/source/89_packages
+    fi
+    if [ -d $srcdir/$_src_base/pack ] ; then
+        install -d $pkgdir/var/lib/shinken/pack/$_mod_name
+        cp -r $srcdir/$_src_base/pack/* $pkgdir/var/lib/shinken/pack/$_mod_name
+    fi
+    if [ -d $srcdir/$_src_base/etc ] ; then
+        install -d $pkgdir/etc/shinken
+        cp -r $srcdir/$_src_base/etc/* $pkgdir/etc/shinken/
+    fi
+    if [ -d $srcdir/$_src_base/libexec ] ; then
+        install -d $pkgdir/var/lib/shinken/libexec
+        cp -r $srcdir/$_src_base/libexec $pkgdir/var/lib/shinken/libexec
+    fi
+   
+    install -d $pkgdir/var/lib/shinken/inventory/$_mod_name
+    install $srcdir/$_src_base/package.json $pkgdir/var/lib/shinken/inventory/$_mod_name/package.json
+    install $srcdir/content.json $pkgdir/var/lib/shinken/inventory/$_mod_name/content.json
+}
+
+md5sums=('1e62387d04fe6e3bcbb9b0ad4a3198e4'
+         'f5f4ecbe4407548c2c6f4da5f193579b')
