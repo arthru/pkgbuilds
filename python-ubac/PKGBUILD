@@ -1,10 +1,11 @@
 pkgname='python-ubac'
 pkgver=0.1.0_dev
-pkgrel=5
+pkgrel=7
 pkgdesc="A tool to backup data"
 url="https://bitbucket.org/hashbangfr/ubac/"
 arch=('any')
 license=('MIT')
+backup=('etc/ubac.ini')
 depends=('python' 'python-paramiko' 'python-setuptools')
 makedepends=('python' 'python-setuptools')
 source=("git+ssh://git@bitbucket.org/hashbangfr/ubac.git")
