@@ -47,14 +47,7 @@ configure_libsearpc() {
 	./configure --prefix=/usr PYTHON=/usr/bin/python2
 }
 
-pkgver() {
-	cd "$srcdir/$pkgname-$_seafilever"
-	configure_libsearpc &> /dev/null
-	grep "PACKAGE_VERSION" Makefile | sed 's/PACKAGE_VERSION.*=[ \t]\+\([0-9\.]\+\)[ \t]*/\1/g'
-}
-
 prepare () {
-	pkgver
 	cd "$srcdir/$pkgname-$_seafilever"
 	patch -p1 -i $srcdir/libsearpc.pc.patch 
 }
