@@ -1,0 +1,21 @@
+pkgname='python-ubac'
+pkgver=0.1.0_dev
+pkgrel=5
+pkgdesc="A tool to backup data"
+url="https://bitbucket.org/hashbangfr/ubac/"
+arch=('any')
+license=('MIT')
+depends=('python' 'python-paramiko' 'python-setuptools')
+makedepends=('python' 'python-setuptools')
+source=("git+ssh://git@bitbucket.org/hashbangfr/ubac.git")
+
+package() {
+  cd "$srcdir/ubac"
+  python3 setup.py build
+  python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+  install -dm0755 $pkgdir/var/log/ubac
+  install -Dm0644 $srcdir/ubac/etc/ubac.ini $pkgdir/etc/ubac.ini
+}
+
+md5sums=('SKIP')
