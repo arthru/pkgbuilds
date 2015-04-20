@@ -9,7 +9,7 @@ pkgver=1.4.2
 _seafilever=4.1.5
 
 #The release number for the arch package, as fixes are added to the PKGBUILD, the release number will increase
-pkgrel=8
+pkgrel=9
 
 # The description of the package, should be about 80 characters long (one line)
 pkgdesc="A framework for writing networked applications in C."
@@ -38,9 +38,15 @@ provides=()
 # Change the default behavior of makepkg see PKGBUILD#options
 options=()
 
-source=("https://github.com/haiwen/ccnet/archive/v${_seafilever}.tar.gz"
+install='ccnet.install'
+
+source=(
+    "https://github.com/haiwen/ccnet/archive/v${_seafilever}.tar.gz"
 	"libccnet.pc.patch"
-	"0001-Add-autoconfiguration-for-libjansson.patch")
+	"0001-Add-autoconfiguration-for-libjansson.patch"
+    "ccnet.install"
+    "ccnet.service"
+)
 
 configure_ccnet() {
 	./autogen.sh
@@ -70,10 +76,16 @@ package () {
 	cd "$srcdir/$pkgname-$_seafilever"
 	make DESTDIR="$pkgdir/" install
 
+    install -d $pkgdir/var/log/ccnet
+
+    install -D -m644 "${srcdir}/ccnet.service" "${pkgdir}/usr/lib/systemd/system/ccnet.service"
+
 	#copy license over
 	mkdir -p $pkgdir/usr/share/licenses/$pkgname
 	cp COPYRIGHT $pkgdir/usr/share/licenses/$pkgname/
 }
-sha256sums=('SKIP'
+sha256sums=('fbfac6b4e7b1e640130935f96af362c8b752342fea0dc81bf7d9161321edf615'
             '66c3b02c3981db6a80819e0ae103bedadf8dfdf81405a7f75a9cba714acf973f'
-            '382b1da33e2b6c0ebab8d3921d92b7417fa11d969ad822cd43aee499fd7b3d94')
+            '382b1da33e2b6c0ebab8d3921d92b7417fa11d969ad822cd43aee499fd7b3d94'
+            'b1f42d51613d4ef96414a185a3e3f601a4569e7e3cea77400109ce02a09c67e7'
+            '56191383f0e68577331ea5e620a6770e0d4d7168884a62cf6cef68c50fe19835')

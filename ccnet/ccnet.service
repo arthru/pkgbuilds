@@ -1,0 +1,11 @@
+[Unit]
+Description=Ccnet server
+After=syslog.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/ccnet-server -c /var/lib/ccnet/ -f /var/log/ccnet/ccnet.log -d -P /var/run/ccnet.pid
+PIDFile=/var/run/ccnet.pid
+
+[Install]
+WantedBy=multi-user.target
