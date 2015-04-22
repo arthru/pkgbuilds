@@ -1,6 +1,6 @@
 pkgname=seafile
 pkgver=4.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Next-generation open source cloud storage with advanced features on privacy protection and teamwork. (Server components, without seahub)"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="https://github.com/haiwen/seafile/"
@@ -11,12 +11,12 @@ depends=(
 makedepends=('vala' 'intltool')
 optdepends=()
 provides=()
-options=('!libtool' '!emptydirs')
-#install=seafile-server.install
+options=('!libtool')
+install=seafile.install
 source=(
     "https://github.com/haiwen/seafile/archive/v${pkgver}.tar.gz"
-    #"seafile-server.install"
-    #"seafile-server@.service"
+    "seafile.install"
+    "seafile.service"
 )
 
 build ()
@@ -32,6 +32,11 @@ package ()
     # Install library and header files
     cd "${srcdir}/${pkgname}-${pkgver}"
     make install DESTDIR="${pkgdir}/"
+
+    mkdir -p "${pkgdir}/var/log/seafile"
+    install -D -m644 "${srcdir}/seafile.service" "${pkgdir}/usr/lib/systemd/system/seafile.service"
 }
 
-md5sums=('16edacaf4b3ec04ec63d7b339bd606b7')
+md5sums=('16edacaf4b3ec04ec63d7b339bd606b7'
+         'd2221fc4815ee322fdbb05fb5e6262b3'
+         'f09a375365db6464c3285ff8955cb68f')

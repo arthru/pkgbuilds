@@ -1,0 +1,11 @@
+[Unit]
+Description=Seafile server
+After=syslog.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/seaf-server -c /var/lib/ccnet/ -d /var/lib/seafile/ -l /var/log/seafile/seafile.log -P /var/run/seaf-server.pid
+PIDFile=/var/run/seaf-server.pid
+
+[Install]
+WantedBy=multi-user.target
