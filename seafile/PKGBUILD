@@ -1,6 +1,6 @@
 pkgname=seafile
 pkgver=4.1.5
-pkgrel=2
+pkgrel=3
 pkgdesc="Next-generation open source cloud storage with advanced features on privacy protection and teamwork. (Server components, without seahub)"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="https://github.com/haiwen/seafile/"
@@ -39,4 +39,4 @@ package ()
 
 md5sums=('16edacaf4b3ec04ec63d7b339bd606b7'
          'd2221fc4815ee322fdbb05fb5e6262b3'
-         'f09a375365db6464c3285ff8955cb68f')
+         'a60291af64110ed5986feb9cd8027433')

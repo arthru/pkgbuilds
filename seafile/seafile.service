@@ -1,6 +1,7 @@
 [Unit]
 Description=Seafile server
-After=syslog.target
+After=ccnet.service
+Requires=ccnet.service
 
 [Service]
 Type=forking
