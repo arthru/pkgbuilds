@@ -1,6 +1,6 @@
 pkgname='python-ubac'
 pkgver=0.1.0_dev
-pkgrel=16
+pkgrel=17
 pkgdesc="A tool to backup data"
 url="https://bitbucket.org/hashbangfr/ubac/"
 arch=('any')
